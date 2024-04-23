@@ -1,20 +1,19 @@
 import {connectDB} from "@/dbConfig/dbConfig";
 import User from "@/models/user.model";
-import { request } from "http";
 import { NextRequest, NextResponse } from "next/server";
 import bcryptjs from "bcryptjs";
 import {mailer} from "@/utils/mailer";
 
 connectDB()
 
-export async function POST(req:NextRequest){
+export async function POST(request:NextRequest){
     interface SignUpValues{
         username:string,
         email:string,
         password:string
     }
 try {
-    const {username,email,password}:SignUpValues=await req.json()
+    const {username,email,password}:SignUpValues=await request.json()
     if (
         !username || !email || !password ||
         username.trim()=="" || email.trim()=="" || password.trim()=="") {
