@@ -27,7 +27,7 @@ try {
         const mailResponse = await transporter.sendMail(mailOptions);
         return mailResponse
   
-} catch (error) {
-  console.log("Something happends while Sending Email")
+} catch (error: any) {
+  throw new Error(`Something happends while Sending Email: ${error.message}`)
 }
 } 

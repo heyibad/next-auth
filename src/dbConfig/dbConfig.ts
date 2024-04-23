@@ -17,3 +17,5 @@ async function connectDB() {
         console.log(`something went wrong: ${error}`)
     }
 }
+
+export {connectDB}
