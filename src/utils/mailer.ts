@@ -6,7 +6,7 @@ interface mailerProps{
     userID:string
 }
 
-const mailer=async({email,emailType,userID}:mailerProps) =>{
+export const mailer=async({email,emailType,userID}:mailerProps) =>{
 try {
   
       const transporter = nodemailer.createTransport({
