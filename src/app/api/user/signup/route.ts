@@ -40,6 +40,9 @@ try {
     })
 
     const newUser= await user.save()
+    const createdUser = await User.findById(user._id).select(
+        "-password"
+    )
 
     if (!newUser) {
         return NextResponse.json({message:"User not created",status:false},{status:400})
@@ -50,7 +53,7 @@ try {
         return NextResponse.json({message:"Email not sent",status:false},{status:500})
     }
 
-    return NextResponse.json({message:"User created successfully",status:true,user:newUser},{status:201})
+    return NextResponse.json({message:"User created successfully",status:true,user:createdUser},{status:201})
     
 } catch (error: any) {
     return NextResponse.json({message:error.message,status:false},{status:500})
