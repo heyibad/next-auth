@@ -36,9 +36,7 @@ const token=  jwt.sign(tokenData,
 const response= NextResponse.json({message:"User Login successfully",status:true},{status:201})
 
 response.cookies.set("token",token,{
-    httpOnly:true,
-    secure:true,
-})
+    httpOnly:true})
 return response
     
 } catch (error: any) {
