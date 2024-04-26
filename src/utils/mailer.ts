@@ -10,16 +10,17 @@ interface mailerProps{
 
 export const mailer=async({email,emailType,userID}:mailerProps) =>{
 try {
+  console.log(email,emailType,userID)
   const TOKEN = await bcryptjs.hash(userID.toString(),10)
   if (emailType === "VERIFY") {
-    const user= await User.findByIdAndUpdate(userID,{verificationToken:TOKEN,verificationTokenExpiry:Date.now()+3600000})
+    const user= await User.findByIdAndUpdate(userID,{$set:{verificationToken:TOKEN,verificationTokenExpiry:Date.now()+3600000}})
   }
   else if (emailType === "FORGOT") {
     const user= await User.findByIdAndUpdate(userID,
-      {forgotPasswordToken:TOKEN,forgotPasswordTokenExpiry:Date.now()+3600000}
+   { $set:  {forgotPasswordToken:TOKEN,forgotPasswordTokenExpiry:Date.now()+3600000}}
     )
   }
-      const transporter = nodemailer.createTransport({
+      const transporter =await  nodemailer.createTransport({
         host: "sandbox.smtp.mailtrap.io",
         port: 2525,
         auth: {
