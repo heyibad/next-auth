@@ -1,10 +1,25 @@
 "use client";
+import axios from 'axios';
 import Link from 'next/link';
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 const Navbar = () => {
   const navbarRef = useRef(null);
   const [isLogin, setIsLogin] = React.useState(false);
+  useEffect(()=>{
+   const validate=async()=>{
+    const {data}=await axios.get("/api/validate")
+    if(data.status == true)
+      {
+        setIsLogin(true)
+      }
+      else{
+        setIsLogin(false)
+      }
+   }
+validate()
+
+  },[isLogin])
 
   const toggleNavbar = () => {
     if (navbarRef.current) {
@@ -18,6 +33,21 @@ const Navbar = () => {
       }
     }
   };
+  const logout=async(e:any)=>{
+    try {
+      const {data}= await axios.post("/api/user/logout")
+      if (data.status== true) {
+        console.log("Logout Sucessfully")
+        alert("Logouted")
+      setIsLogin(false)
+
+      }
+    } catch (error:any) {
+       console.log(error.message)
+       alert(error.message)
+    }
+
+  }
 
   return (
     <nav className="bg-white border-gray-200 dark:bg-gray-900">
@@ -56,7 +86,7 @@ const Navbar = () => {
             
         ):(
               <li>
-                <Link href="/logout" className="block py-2 px-3 hover:bg-blue-400 text-white mb-2 bg-blue-700 rounded-lg" aria-current="page">Logout</Link>
+                <Link onClick={logout} href="/" className="block py-2 px-3 hover:bg-blue-400 text-white mb-2 bg-blue-700 rounded-lg" aria-current="page">Logout</Link>
               </li>
         )}
           </ul>
