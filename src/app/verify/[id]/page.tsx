@@ -3,14 +3,16 @@ import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const Page = () => {
-  const [token, setToken] = useState({ token: '' });
+const Page = ({params}:any) => {
   const router = useRouter();
+  const {id}=params
 
   const formHandler = async (e:any) => {
     e.preventDefault();
     try {
-      const response = await axios.post('/api/user/verify',token);
+      const response = await axios.post('/api/user/verify', {
+        token: id,
+      });
       console.log(response);
       if (response.data.status == true) {
         router.push('/login');
@@ -30,10 +32,8 @@ const Page = () => {
         <div className="mb-5 mt-4">
          
           <input type="input" id="input" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="xyx" 
-         value={token.token}
-         onChange={(e:any)=>{
-        setToken({token:e.target.value})
-         }}
+         value={id}
+         disabled
          />
         </div>
      
