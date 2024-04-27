@@ -35,7 +35,7 @@ try {
           subject: emailType === "VERIFY" ? "VERIFICATION":"FORGOT PASSWORD", // Subject line
           html: `
           <p>
-           <a href='${process.env.DOMAIN}/api/user/${emailType=="VERIFY"?"verify":"forgot"}?token=${TOKEN}' target='_blank'>Click Here </a> to
+           <a href='${process.env.DOMAIN}/${emailType=="VERIFY"?"verify":"forgot"}/${TOKEN}' target='_blank'>Click Here </a> to
             ${emailType=="VERIFY"?"verify your email":"reset your password"} 
            </p>`, 
          

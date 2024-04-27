@@ -10,10 +10,13 @@ const Page = () => {
   const formHandler = async (e:any) => {
     e.preventDefault();
     try {
+      console.log(token)
       const response = await axios.post('/api/user/verify',token);
       console.log(response);
       if (response.data.status == true) {
         router.push('/login');
+      }else{
+        alert("Invalid Token")
       }
     } catch (error: any) {
       console.log(error);

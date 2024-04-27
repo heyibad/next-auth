@@ -3,13 +3,15 @@ import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const Page = ({params}:any) => {
+const Page = () => {
   const router = useRouter();
-  const {id}=params
-
+ 
+const id= window.location.pathname.split("/")[2]
+console.log(id)
   const formHandler = async (e:any) => {
     e.preventDefault();
     try {
+      console.log(id)
       const response = await axios.post('/api/user/verify', {
         token: id,
       });
@@ -17,8 +19,12 @@ const Page = ({params}:any) => {
       if (response.data.status == true) {
         router.push('/login');
       }
+      else{
+        alert("Invalid Token")
+      }
     } catch (error: any) {
       console.log(error);
+      alert("Invalid Token")
     }
    
   };

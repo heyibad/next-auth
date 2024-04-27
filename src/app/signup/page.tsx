@@ -16,7 +16,7 @@ const Page = () => {
       console.log(user)
       try {
         const { data } = await axios.post('/api/user/signup', user);
-        console.log(data);
+        console.log("this is",data);
         if (data.status === true) {
           alert("Sign Up Successful");
           router.push('/verify');
